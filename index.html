@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Миллион до 23 — Чёрно‑белый</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0a0a0a;--fg:#fff;--muted:#b8b8b8;--line:#fff;--soft:#232323;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font-family:Inter, Montserrat, sans-serif;}
+  a{text-decoration:none;color:inherit}
+  .container{max-width:1160px;margin:0 auto;padding:0 20px}
+
+  .nav{position:sticky;top:0;background:rgba(0,0,0,.9);border-bottom:1px solid var(--soft);z-index:40}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800}
+  .badge{border:2px solid var(--fg);border-radius:12px;padding:8px 12px;font-size:12px;font-weight:700}
+  .nav a.btn{border:2px solid var(--line);padding:10px 16px;border-radius:14px;font-weight:700}
+  .nav a.btn:hover{background:var(--fg);color:#000}
+
+  .hero{border-bottom:1px solid var(--soft)}
+  .hero-in{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;padding:72px 0}
+  .title{font-family:Montserrat;font-size:54px;font-weight:800;text-transform:uppercase}
+  .subtitle{color:var(--muted);font-size:18px;max-width:600px}
+  .cta{display:flex;gap:14px;margin-top:26px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;border:2px solid var(--line);border-radius:16px;padding:14px 22px;font-weight:800;transition:.2s}
+  .btn.primary{background:var(--fg);color:#000}
+  .btn.primary:hover{transform:translateY(-1px)}
+  .btn.ghost:hover{background:#fff;color:#000}
+  .hero-card{border:2px solid var(--line);border-radius:18px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;background:#000}
+
+  .divider{border-top:2px solid var(--line);border-bottom:2px solid var(--line);padding:10px 0}
+  .ticker{white-space:nowrap;overflow:hidden}
+  .ticker span{display:inline-block;padding-left:100%;animation:ticker 16s linear infinite;font-weight:800;letter-spacing:.15em}
+  @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+
+  .features{padding:64px 0}
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+  .card{grid-column:span 6;border:2px solid var(--line);border-radius:16px;padding:24px;min-height:160px;background:#0e0e0e}
+  .card h3{margin:0;font-family:Montserrat;font-size:22px}
+  .card p{margin:0;color:var(--muted)}
+
+  .steps{padding:70px 0}
+  .steps .step{grid-column:span 4;border:2px solid var(--line);border-radius:14px;padding:20px;background:#0e0e0e}
+
+  .num{font-weight:800;border:2px solid var(--line);display:inline-block;padding:6px 10px;border-radius:12px;margin-bottom:10px}
+
+  .kpis{padding:64px 0;border-top:1px solid var(--soft)}
+  .kpi{border:2px solid var(--line);border-radius:16px;padding:24px;text-align:center;background:#0e0e0e}
+  .kpi .num{font-family:Montserrat;font-size:34px;font-weight:800}
+  .kpi .label{color:var(--muted);margin-top:6px}
+
+  .lead{padding:70px 0;border-top:1px solid var(--soft)}
+  .lead form{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .input{border:2px solid var(--line);border-radius:14px;padding:14px 16px;min-width:240px;font-weight:600;background:#000;color:#fff}
+  .note{color:var(--muted);text-align:center;margin-top:10px}
+
+  .faq{padding:70px 0;border-top:1px solid var(--soft)}
+  details{border:2px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px;background:#0e0e0e}
+  summary{cursor:pointer;font-weight:700}
+  summary::-webkit-details-marker{display:none}
+  details p{color:var(--muted);margin-top:8px}
+
+  .cta-final{padding:64px 0;border-top:2px solid var(--line);border-bottom:2px solid var(--line);text-align:center}
+  .cta-final .btn{font-size:18px;padding:16px 26px}
+  footer{padding:28px 0;text-align:center;color:var(--muted)}
+
+  .progress{position:fixed;top:0;left:0;height:3px;background:#fff;width:0;z-index:100}
+  .reveal{opacity:0;transform:translateY(16px);transition:.6s}
+  .reveal.show{opacity:1;transform:none}
+
+  /* Мобильная адаптация */
+  @media (max-width: 1024px) {
+    .hero-in {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      text-align: center;
+      padding: 52px 0;
+    }
+    .hero-card {
+      aspect-ratio: auto;
+      padding: 20px;
+    }
+    .title { font-size: 38px; }
+    .subtitle { font-size: 16px; max-width: 100%; }
+    .cta { flex-direction: column; align-items: center; }
+    .grid { grid-template-columns: 1fr; }
+    .card, .step, .kpi { grid-column: span 12; }
+    .steps .step { margin-bottom: 18px; }
+    .nav-in { flex-wrap: wrap; gap: 12px; justify-content: center; height: auto; padding: 12px 0; }
+    .nav-cta { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .nav a.btn { padding: 10px 14px; }
+    .lead form { flex-direction: column; align-items: center; }
+    .input { width: 100%; min-width: unset; }
+    .cta-final .btn { width: 100%; max-width: 420px; }
+    .container { padding: 0 14px; }
+    .badge { padding: 6px 10px; }
+  }
+
+  /* Очень маленькие экраны */
+  @media (max-width: 420px) {
+    .title { font-size: 30px; }
+    .cta { gap: 10px; }
+    .btn { padding: 12px 18px; border-radius: 14px; }
+    .kpi .num { font-size: 28px; }
+    .card { padding: 18px; }
+  }
+</style>
+</head>
+<body>
+<nav class="nav"><div class="container nav-in"><div class="brand"><span class="badge">М23</span> Миллион до 23</div>
+<div class="nav-cta"><a class="btn" href="https://t.me/milliondo23_bot" target="_blank">Открыть бота</a>
+<a class="btn" href="https://t.me/igorns29" target="_blank">Связаться</a></div></div></nav>
+
+<header class="hero"><div class="container hero-in"><div>
+<h1 class="title">Системы, которые превращают усилия в результат</h1>
+<p class="subtitle">Мышление, дисциплина, деньги, фокус и окружение — только в чёрно‑белом стиле. Без лишнего шума.</p>
+<div class="cta"><a class="btn primary" href="https://t.me/milliondo23_bot" target="_blank">Начать в боте</a>
+<a class="btn ghost" href="https://t.me/milliondo23" target="_blank">Перейти в канал</a></div></div>
+<div class="hero-card">
+  <!-- Логотип SVG -->
+  <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" style="width:90%;height:auto">
+    <circle cx="80" cy="100" r="60" stroke="white" stroke-width="10" fill="none"/>
+    <text x="80" y="118" text-anchor="middle" font-family="Arial, sans-serif" font-size="72" fill="white">$</text>
+    <text x="180" y="100" font-family="Arial Black, sans-serif" font-size="54" fill="white" font-weight="bold">МИЛЛИОН</text>
+    <text x="180" y="160" font-family="Arial Black, sans-serif" font-size="54" fill="white" font-weight="bold">ДО 23</text>
+  </svg>
+</div></div></header>
+
+<section class="divider"><div class="container ticker"><span> МЫШЛЕНИЕ • ДИСЦИПЛИНА • ФОКУС • ДЕНЬГИ • ОКРУЖЕНИЕ • </span></div></section>
+
+<section class="features"><div class="container grid">
+<article class="card"><h3>🧠 Мышление</h3><p>От «выжить» к «строить системы». Решения на перспективу.</p></article>
+<article class="card"><h3>⚡ Дисциплина</h3><p>Режим, глубокая работа, контроль.</p></article>
+<article class="card"><h3>🔋 Фокус и энергия</h3><p>Цифровая гигиена, восстановление.</p></article>
+<article class="card"><h3>💰 Деньги и инвестиции</h3><p>Вложения против потребления. Рост капитала.</p></article>
+<article class="card"><h3>🤝 Окружение</h3><p>Наставники и связи как ускорители.</p></article>
+<article class="card"><h3>🔑 Самоидентичность</h3><p>Создатель, а не жертва.</p></article>
+</div></section>
+
+<section class="steps"><div class="container grid">
+<div class="step"><div class="num">Шаг 1</div><h3>Открой навигатор</h3><p>Перейди в бота и выбери раздел.</p></div>
+<div class="step"><div class="num">Шаг 2</div><h3>Выполни практику</h3><p>Чек‑лист к каждому разбору.</p></div>
+<div class="step"><div class="num">Шаг 3</div><h3>Подключи сообщество</h3><p>Закрепляй прогресс в канале.</p></div>
+</div></section>
+
+<section class="kpis"><div class="container grid reveal">
+<div class="card kpi"><div class="num">300k₽/мес</div><div class="label">Стабильный доход</div></div>
+<div class="card kpi"><div class="num">20+ гайдов</div><div class="label">Разборы и практики</div></div>
+<div class="card kpi"><div class="num">6 разделов</div><div class="label">Основные направления</div></div>
+<div class="card kpi"><div class="num">~30 мин/день</div><div class="label">для прогресса</div></div>
+</div></section>
+
+<section class="lead"><div class="container reveal" style="text-align:center">
+<h2>Получить материалы и план</h2>
+<form onsubmit="return sendLead(event)"><input class="input" id="tguser" placeholder="@username" required pattern="^@?[a-zA-Z0-9_]{5,}$"/>
+<button class="btn primary" type="submit">Отправить</button></form>
+<div class="note">Откроется бот с твоей меткой.</div></div></section>
+
+<section class="faq"><div class="container">
+<h2>Ответы на вопросы</h2>
+<details><summary>Это бесплатно?</summary><p>Базовые материалы доступны сразу.</p></details>
+<details><summary>Сколько времени?</summary><p>20–30 минут в день достаточно.</p></details>
+<details><summary>Как связаться?</summary><p>@igorns29 — пишите лично.</p></details>
+</div></section>
+
+<section class="cta-final"><div class="container"><h2>Готов работать по системе?</h2>
+<div class="cta" style="justify-content:center">
+<a class="btn primary" href="https://t.me/milliondo23_bot" target="_blank">Открыть бота</a>
+<a class="btn ghost" href="https://t.me/milliondo23" target="_blank">Перейти в канал</a>
+<a class="btn ghost" href="https://t.me/igorns29" target="_blank">Связаться</a></div></div></section>
+
+<footer><div class="container">© 2025 Миллион до 23 — ч/б версия</div></footer>
+
+<div class="progress" id="progress"></div>
+<script>
+const bar=document.getElementById('progress');
+document.addEventListener('scroll',()=>{const h=document.documentElement;bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'});
+const io=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('show');io.unobserve(x.target)}})},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+function sendLead(ev){ev.preventDefault();const v=document.getElementById('tguser').value.trim();const uname=v.startsWith('@')?v.slice(1):v;const url=`https://t.me/milliondo23_bot?start=lead_${encodeURIComponent(uname)}`;window.open(url,'_blank');return false;}
+</script>
+</body>
+</html>
